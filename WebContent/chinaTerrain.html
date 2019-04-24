@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>加载中国地形数据...</title>
+
+<script src="./Cesium/Cesium.js"></script>
+
+
+<style>
+@import url("./Cesium/Widgets/widgets.css");
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#cesiumContainer {
+	height: 95%;
+}
+
+h1 {
+	heigth: 5%;
+}
+</style>
+</head>
+<body>
+	<h1>加载中国地形数据</h1>
+
+	<div id="cesiumContainer"></div>
+	<script>
+	
+		var terrainProvider = new Cesium.CesiumTerrainProvider({
+			url:'http://192.168.0.150:8080/testDatadem/'
+		})	
+	
+		var viewer = new Cesium.Viewer("cesiumContainer", {
+			terrainProvider:terrainProvider,
+		});
+		
+		
+		
+		var entity = viewer.entities.add({
+	    	// 22.5445042387,114.0872077942 bing地图华强北地图poi 经纬度
+	    	 //Google map huaqingbei lat and lon 22.5440904825,114.0854052726
+	         position: Cesium.Cartesian3.fromDegrees(114.0872077942, 22.5445042387),
+	         model: {
+	             //uri: '3Dmodels/Cesium_Air.glb'
+	            	 uri: '3Dmodels/models/WoodTower/Wood_Tower.gltf'
+	         }
+	     });
+	   viewer.trackedEntity = entity;
+		
+		
+		
+		/* viewer.camera.flyTo({
+			destination: Cesium.Cartesian3.fromDegrees(115,29,150000.0)
+		}) */
+	</script>
+	
+	
+     
+
+
+</body>
+</html>

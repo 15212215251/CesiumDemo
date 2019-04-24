@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>全球动态水域水纹效果demo</title>
+
+<script src="./Cesium/Cesium.js"></script>
+
+
+<style>
+@import url("./Cesium/Widgets/widgets.css");
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#cesiumContainer {
+	height: 95%;
+}
+
+h1 {
+	heigth: 5%;
+}
+</style>
+</head>
+<body>
+	<h1>全球动态水域水纹效果</h1><a href="loadAnhuiTerrain.html">查看安徽地区地形数据加载效果N29E115</a>
+
+	<div id="cesiumContainer"></div>
+	<script>
+		var viewer = new Cesium.Viewer("cesiumContainer", {
+
+		});
+
+		var scene = viewer.scene;
+		function applyWaterMaterial(primitive, scene) {
+			primitive.appearance.material = new Cesium.Material({
+				fabric : {
+					type : 'Water',
+					uniforms : {
+						specularMap : 'images/worldlayer.jpg',
+						normalMap : 'images/watermask.jpg',
+						frequency : 10000.0,
+						animationSpeed : 0.01,
+						amplitude : 1.0
+					}
+				}
+			});
+		}
+
+		var worldRectangle = viewer.scene.primitives
+				.add(new Cesium.Primitive(
+						{
+							geometryInstances : new Cesium.GeometryInstance(
+									{
+										geometry : new Cesium.RectangleGeometry(
+												{
+													rectangle : Cesium.Rectangle
+															.fromDegrees(-180,
+																	-90, 180.0,
+																	90.0),
+													vertexFormat : Cesium.EllipsoidSurfaceAppearance.VERTEX_FORMAT
+												})
+									}),
+							appearance : new Cesium.EllipsoidSurfaceAppearance(
+									{
+										aboveGround : true
+									}),
+							show : true
+						}));
+
+		applyWaterMaterial(worldRectangle, scene);
+	</script>
+
+
+</body>
+</html>

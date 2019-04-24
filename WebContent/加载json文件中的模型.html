@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>加载json中的模型</title>
+
+<script src="./Cesium/Cesium.js"></script>
+
+
+<style>
+@import url("./Cesium/Widgets/widgets.css");
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#cesiumContainer {
+	height: 95%;
+}
+
+h1 {
+	heigth: 5%;
+}
+</style>
+</head>
+<body>
+	
+	<h1>加载json中的模型,直接请求服务器中的托管数据</h1>
+	<div id="cesiumContainer"></div>
+	<script>
+	
+
+	var viewer = new Cesium.Viewer('cesiumContainer');
+
+	var tileset = new Cesium.Cesium3DTileset({
+	    url: Cesium.IonResource.fromAssetId(19365)
+	});
+	viewer.scene.primitives.add(tileset);
+
+	var initialPosition = new Cesium.Cartesian3(-1111583.3721328347, -5855888.151574568, 2262561.444696748);
+	var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(100.0, -15.0, 0.0);
+	viewer.scene.camera.setView({
+	    destination: initialPosition,
+	    orientation: initialOrientation,
+	    endTransform: Cesium.Matrix4.IDENTITY
+	});
+	
+	</script>
+
+
+</body>
+</html>
